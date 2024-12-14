@@ -5,6 +5,7 @@ import "./globals.css";
 const font = Nunito_Sans({
   weight: ["400","600", "700"],
   style: "normal",
+  preload: false,
 })
 
 export const metadata: Metadata = {
