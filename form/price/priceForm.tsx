@@ -27,9 +27,9 @@ const PriceForm = ({ appState, onSaveForm }: FormPropsType<PriceFormType>) => {
             }}
         >
             <div className="space-y-4">
-                <h1 className="text-xl font-bold">Court Calculater</h1>
+                <h1 className="text-xl font-bold">CourtFeeCalc</h1>
                 <div className="space-y-2 mb-4">
-                    <Label htmlFor="input-01">Price per hour.</Label>
+                    <Label htmlFor="input-01">Fees per hour.</Label>
                     <Input placeholder="Input number" type="number" {...form.register("pricePerHour")} />
                 </div>
                 <div className="space-y-2 mb-4">
