@@ -3,7 +3,14 @@ import * as yup from "yup";
 
 export const schema = yup
   .object({
-    pricePerHour: yup.number().required().nullable(),
+    pricePerHour: yup
+      .number()
+      .required()
+      .nullable()
+      .test("price", "Price invalid", (value) => {
+        if (!value) return false;
+        return value > 0;
+      }),
     startTime: yup
       .string()
       .required()
