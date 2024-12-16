@@ -1,10 +1,32 @@
+import { findIndexOfTime, generateTimeArray } from "@/lib/utils";
 import * as yup from "yup";
 
 export const schema = yup
   .object({
     pricePerHour: yup.number().required().nullable(),
-    startTime: yup.string().required(),
-    endTime: yup.string().required(),
+    startTime: yup
+      .string()
+      .required()
+      .test("start", "Start time invalid", (value, ctx) => {
+        if (!value) return false;
+        const timePeriod = generateTimeArray();
+        const indexStartTime = findIndexOfTime(timePeriod, value);
+        const indexEndTime = findIndexOfTime(timePeriod, ctx.parent.endTime);
+        return indexStartTime < indexEndTime;
+      }),
+    endTime: yup
+      .string()
+      .required()
+      .test("end", "End time invalid", (value, ctx) => {
+        if (!value) return false;
+        const timePeriod = generateTimeArray();
+        const indexStartTime = findIndexOfTime(
+          timePeriod,
+          ctx.parent.startTime
+        );
+        const indexEndTime = findIndexOfTime(timePeriod, value);
+        return indexStartTime < indexEndTime;
+      }),
   })
   .required();
 
