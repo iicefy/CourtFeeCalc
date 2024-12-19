@@ -8,7 +8,7 @@ const Summary = ({ appState, onBack }: {
     onBack: () => void
 }) => {
     const periodTime = findPeriodTime(appState.priceForm.startTime, appState.priceForm.endTime)
-    const costPerPlayer = calculatePrice(appState.playerForm.player, periodTime)
+    const costPerPlayer = calculatePrice(appState.playerForm.player, periodTime, appState.priceForm.pricePerHour || 0)
     const playerCost = appState.playerForm.player.map((player, index) => {
         return {
             name: player.name,

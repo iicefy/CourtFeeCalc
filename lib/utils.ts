@@ -41,7 +41,8 @@ export function findHoursAmount(startTime: string, endTime: string) {
 
 export function calculatePrice(
   players: PlayerFormType["player"],
-  timePeriod: ReturnType<typeof findPeriodTime>
+  timePeriod: ReturnType<typeof findPeriodTime>,
+  pricePerHour: number
 ) {
   const playerPeriod = players.map((player) => {
     return findPeriodTime(player.time[0] || "", player.time[1] || "");
@@ -65,7 +66,6 @@ export function calculatePrice(
     {}
   );
 
-  const pricePerHour = 100;
   const pricePerPeriod = pricePerHour / 2;
 
   playerPeriod.forEach((period) => {
