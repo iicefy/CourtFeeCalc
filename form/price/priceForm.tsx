@@ -28,7 +28,6 @@ const PriceForm = ({ appState, onSaveForm }: FormPropsType<PriceFormType>) => {
             }}
         >
             <div className="space-y-4">
-                <h1 className="text-xl font-bold">CourtFeeCalc</h1>
                 <div className="space-y-2 mb-4">
                     <Label htmlFor="input-01">Fees per hour.</Label>
                     <div className="flex flex-col gap-2">

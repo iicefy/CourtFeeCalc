@@ -15,32 +15,33 @@ const Summary = ({ appState, onBack }: {
             cost: costPerPlayer[index].toFixed(2)
         }
     })
-
-    if (!playerCost.length) {
-        return null
-    }
-
+    
     return (
         <div className="space-y-4">
             <h1 className="text-xl font-bold">Summary</h1>
-            <div className="border rounded-lg">
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="w-[100px]">Player</TableHead>
-                            <TableHead className="text-right">Pay</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {playerCost.map((player, index) => (
-                            <TableRow key={index}>
-                                <TableCell className="font-medium">{player.name}</TableCell>
-                                <TableCell className="text-right">{player.cost}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </div>
+            {
+                playerCost.length !== 0 && (
+                    <div className="border rounded-lg">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="w-[100px]">Player</TableHead>
+                                    <TableHead className="text-right">Pay</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {playerCost.map((player, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell className="font-medium">{player.name}</TableCell>
+                                        <TableCell className="text-right">{player.cost}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
+                )
+            }
+
             <Button variant={'default'} type='button' onClick={onBack}>Back</Button>
         </div>
     )

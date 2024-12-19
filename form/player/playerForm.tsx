@@ -40,33 +40,38 @@ const PlayerForm = ({ appState, onSaveForm, onBack }: FormPropsType<PlayerFormTy
         }>
             <div className="space-y-4">
                 <PlayerInput onAddUser={onAddUser} />
-                <PlayerContainer>
-                    {fields.map((field, index) => {
-                        return (
-                            <PlayerCard key={field.id}>
-                                <div className="flex w-full gap-2">
-                                    <Input placeholder="Input name" {...form.register(`player.${index}.name`)} />
-                                    <Button variant={'destructive'} type='button' onClick={() => {
-                                        remove(index)
-                                    }}>Remove</Button>
-                                </div>
-                                <FormField
-                                    control={form.control}
-                                    name={`player.${index}.time`}
-                                    render={({ field }) => {
-                                        return (
-                                            <TimeSlider
-                                                field={field}
-                                                timeStart={appState.priceForm.startTime}
-                                                timeEnd={appState.priceForm.endTime}
-                                            />
-                                        )
-                                    }}
-                                />
-                            </PlayerCard>
-                        )
-                    })}
-                </PlayerContainer>
+                {
+                    fields.length !== 0 && (
+                        <PlayerContainer>
+                            {fields.map((field, index) => {
+                                return (
+                                    <PlayerCard key={field.id}>
+                                        <div className="flex w-full gap-2">
+                                            <Input placeholder="Input name" {...form.register(`player.${index}.name`)} />
+                                            <Button variant={'destructive'} type='button' onClick={() => {
+                                                remove(index)
+                                            }}>Remove</Button>
+                                        </div>
+                                        <FormField
+                                            control={form.control}
+                                            name={`player.${index}.time`}
+                                            render={({ field }) => {
+                                                return (
+                                                    <TimeSlider
+                                                        field={field}
+                                                        timeStart={appState.priceForm.startTime}
+                                                        timeEnd={appState.priceForm.endTime}
+                                                    />
+                                                )
+                                            }}
+                                        />
+                                    </PlayerCard>
+                                )
+                            })}
+                        </PlayerContainer>
+                    )
+                }
+
                 <div className="flex gap-2">
                     <Button variant={'default'} type='button' onClick={onBack}>Back</Button>
                     <Button variant={'default'} type='submit'>Next</Button>

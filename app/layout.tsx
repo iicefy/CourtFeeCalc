@@ -3,7 +3,7 @@ import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
 
 const font = Nunito_Sans({
-  weight: ["400","600", "700"],
+  weight: ["400", "600", "700"],
   style: "normal",
   preload: false,
 })
@@ -23,7 +23,8 @@ export default function RootLayout({
       <body
         className={`${font.className} antialiased`}
       >
-        <div className="p-4">
+        <div className="p-4 space-y-4">
+          <h1 className="text-xl font-extrabold text-green-800">CourtFeeCalc</h1>
           {children}
         </div>
       </body>
