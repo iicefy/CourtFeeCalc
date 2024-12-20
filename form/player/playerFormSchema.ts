@@ -6,7 +6,12 @@ const playerSchema = yup.object({
 });
 
 export const schema = yup.object({
-  player: yup.array().of(playerSchema).required(),
+  player: yup
+    .array()
+    .of(playerSchema)
+    .test("required", "Player required.", (value) => {
+      return value && value?.length > 0;
+    }),
 });
 
 export type PlayerFormType = yup.InferType<typeof schema>;
