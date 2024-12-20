@@ -9,8 +9,9 @@ export const schema = yup.object({
   player: yup
     .array()
     .of(playerSchema)
+    .required()
     .test("required", "Player required.", (value) => {
-      return value && value?.length > 0;
+      return value?.length > 0;
     }),
 });
 
