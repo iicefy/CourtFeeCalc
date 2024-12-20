@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FormField } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ErrorMessage } from "@hookform/error-message";
 
 const PlayerForm = ({ appState, onSaveForm, onBack }: FormPropsType<PlayerFormType>) => {
     const form = useForm({
@@ -71,6 +72,12 @@ const PlayerForm = ({ appState, onSaveForm, onBack }: FormPropsType<PlayerFormTy
                         </PlayerContainer>
                     )
                 }
+
+                <ErrorMessage
+                    errors={form.formState.errors}
+                    name="player"
+                    render={({ message }) => <span className="text-destructive text-sm">{message}</span>}
+                />
 
                 <div className="flex gap-2">
                     <Button variant={'default'} type='button' onClick={onBack}>Back</Button>
