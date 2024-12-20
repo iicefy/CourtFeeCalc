@@ -20,8 +20,6 @@ const PlayerForm = ({ appState, onSaveForm, onBack }: FormPropsType<PlayerFormTy
         name: 'player'
     })
 
-    console.log(form.watch("player"))
-
     const onAddUser = (name: string) => {
         append({
             name: name, time: [
@@ -30,6 +28,8 @@ const PlayerForm = ({ appState, onSaveForm, onBack }: FormPropsType<PlayerFormTy
             ]
         })
     }
+
+    const period = findPeriodTime(appState.priceForm.startTime, appState.priceForm.endTime)
 
     return (
         <form onSubmit={
@@ -58,7 +58,7 @@ const PlayerForm = ({ appState, onSaveForm, onBack }: FormPropsType<PlayerFormTy
                                             control={form.control}
                                             name={`player.${index}.time`}
                                             render={({ field }) => {
-                                                const period = findPeriodTime(appState.priceForm.startTime, appState.priceForm.endTime)
+
                                                 const defaultStart = findIndexOfTime(period, field.value[0] || appState.priceForm.startTime);
                                                 const defaultEnd = findIndexOfTime(period, field.value[1] || appState.priceForm.endTime);
                                                 const values: number[] = [defaultStart, defaultEnd]
