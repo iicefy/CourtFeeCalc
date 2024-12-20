@@ -19,11 +19,7 @@ export function generateTimeArray() {
   return times;
 }
 
-export const findIndexOfTime = (period: string[], time?: string) => {
-  if (!time) {
-    return 0;
-  }
-
+export const findIndexOfTime = (period: string[], time: string) => {
   return period.indexOf(time);
 };
 

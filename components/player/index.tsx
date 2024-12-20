@@ -8,29 +8,19 @@ import { ControllerRenderProps } from "react-hook-form";
 import { Slider } from "../ui/slider";
 import { cn, findIndexOfTime, findPeriodTime } from "@/lib/utils";
 
-export default function TimeSlider({ field, timeStart, timeEnd }: {
-    field: ControllerRenderProps<{
-        player: {
-            time: (string | undefined)[];
-            name: string;
-        }[];
-    }, `player.${number}.time`>
-    timeStart: string;
-    timeEnd: string;
+export default function TimeSlider({ value, onChange, period }: {
+    value: number[];
+    onChange: (value: number[]) => void;
+    period: string[];
 }) {
     const skipInterval = 2;
-    const period = findPeriodTime(timeStart, timeEnd)
-    const defaultStart = findIndexOfTime(period, field.value[0]);
-    const defaultEnd = findIndexOfTime(period, field.value[1]);
 
     return (
         <div>
             <Slider
-                defaultValue={[defaultStart, defaultEnd]}
+                defaultValue={value}
                 max={period.length - 1}
-                onValueChange={(e) => {
-                    field.onChange(e.map((value) => period[value]));
-                }}
+                onValueChange={(e) => onChange(e)}
                 minStepsBetweenThumbs={1}
             />
 
@@ -39,11 +29,19 @@ export default function TimeSlider({ field, timeStart, timeEnd }: {
                 aria-hidden="true"
             >
                 {period.map((value, i) => (
-                    <span key={i} className="flex w-0 flex-col items-center justify-center gap-2">
+                    <span
+                        key={i}
+                        className="flex w-0 flex-col items-center justify-center gap-2"
+                    >
                         <span
-                            className={cn("h-1 w-px bg-muted-foreground/70", i % skipInterval !== 0 && "h-0.5")}
+                            className={cn(
+                                "h-1 w-px bg-muted-foreground/70",
+                                i % skipInterval !== 0 && "h-0.5"
+                            )}
                         />
-                        <span className={cn(i % skipInterval !== 0 && "opacity-0")}>{value}</span>
+                        <span className={cn(i % skipInterval !== 0 && "opacity-0")}>
+                            {value}
+                        </span>
                     </span>
                 ))}
             </span>

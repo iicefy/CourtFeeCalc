@@ -7,6 +7,7 @@ import { FormField } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ErrorMessage } from "@hookform/error-message";
+import { findIndexOfTime, findPeriodTime } from "@/lib/utils";
 
 const PlayerForm = ({ appState, onSaveForm, onBack }: FormPropsType<PlayerFormType>) => {
     const form = useForm({
@@ -57,11 +58,18 @@ const PlayerForm = ({ appState, onSaveForm, onBack }: FormPropsType<PlayerFormTy
                                             control={form.control}
                                             name={`player.${index}.time`}
                                             render={({ field }) => {
+                                                const period = findPeriodTime(appState.priceForm.startTime, appState.priceForm.endTime)
+                                                const defaultStart = findIndexOfTime(period, field.value[0] || appState.priceForm.startTime);
+                                                const defaultEnd = findIndexOfTime(period, field.value[1] || appState.priceForm.endTime);
+                                                const values: number[] = [defaultStart, defaultEnd]
+
                                                 return (
                                                     <TimeSlider
-                                                        field={field}
-                                                        timeStart={appState.priceForm.startTime}
-                                                        timeEnd={appState.priceForm.endTime}
+                                                        value={values}
+                                                        period={period}
+                                                        onChange={(value) => {
+                                                            field.onChange(value.map((v) => period[v]))
+                                                        }}
                                                     />
                                                 )
                                             }}
