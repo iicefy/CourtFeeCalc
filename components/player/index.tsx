@@ -1,12 +1,11 @@
 "use client"
 
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { ControllerRenderProps } from "react-hook-form";
 import { Slider } from "../ui/slider";
-import { cn, findIndexOfTime, findPeriodTime } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 export default function TimeSlider({ value, onChange, period }: {
     value: number[];
@@ -80,11 +79,22 @@ const PlayerInput = ({ onAddUser }: {
         setName('');
     }
 
+    const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleAddUser()
+        }
+    }
+
     return (
         <div className="space-y-2 mb-4">
             <Label htmlFor="input-01">Add Players.</Label>
             <div className="flex gap-2">
-                <Input placeholder="Input name" value={name} onChange={(e) => setName(e.target.value)} />
+                <Input
+                    placeholder="Input name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                />
                 <Button variant={'outline'} type='button' onClick={handleAddUser}>Add Player</Button>
             </div>
         </div >
